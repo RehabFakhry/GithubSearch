@@ -4,5 +4,5 @@ import com.the_chance.githubsearch.model.UserSearchResponse
 
 interface RemoteDataSource {
     suspend fun searchUsers(query: String): UserSearchResponse
-    suspend fun getUserDetails(userId: Long): UserSearchResponse
+    suspend fun getUserDetails(userName: String): UserSearchResponse
 }

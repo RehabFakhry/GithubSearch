@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.the_chance.githubsearch"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.the_chance.githubsearch"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -61,6 +61,7 @@ dependencies {
     implementation ("androidx.compose.runtime:runtime:1.0.0-beta01")
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0-beta01") // For LiveData interop
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.7.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -74,9 +75,14 @@ dependencies {
     implementation ("io.coil-kt:coil-compose:2.4.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
     implementation ("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+
     //lottie dependency
     implementation ("com.airbnb.android:lottie:6.0.0")
     implementation ("com.airbnb.android:lottie-compose:6.0.0")
 
+    //navigation dependency
+    val nav_version = "2.7.0"
+
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 }

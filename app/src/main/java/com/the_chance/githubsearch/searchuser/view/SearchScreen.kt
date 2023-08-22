@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.the_chance.githubsearch.R
 import com.the_chance.githubsearch.searchuser.view.composable.NoResultImage
 import com.the_chance.githubsearch.searchuser.view.composable.UserItemCard
@@ -28,7 +29,7 @@ import com.the_chance.githubsearch.searchuser.viewmodel.SearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(viewModel: SearchViewModel) {
+fun SearchScreen(viewModel: SearchViewModel,navController: NavController) {
     var searchText by remember { mutableStateOf(TextFieldValue()) }
 
     val searchResults by viewModel.searchResults.observeAsState(initial = emptyList())
@@ -59,7 +60,7 @@ fun SearchScreen(viewModel: SearchViewModel) {
         if (searchResults.isNotEmpty()) {
             LazyColumn {
                 items(searchResults) { resultItem ->
-                    UserItemCard(user = resultItem)
+                    UserItemCard(resultItem, navController)
                 }
             }
         } else {

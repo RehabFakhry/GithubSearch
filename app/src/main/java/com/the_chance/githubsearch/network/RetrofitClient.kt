@@ -6,4 +6,8 @@ object RetrofitClient :RemoteDataSource {
     override suspend fun searchUsers(query: String): UserSearchResponse {
         return RetrofitHelper.getInstance().create(GitHubApiService::class.java).searchUsers(query)
     }
+
+    override suspend fun getUserDetails(userName: String): UserSearchResponse {
+        return RetrofitHelper.getInstance().create(GitHubApiService::class.java).getUserDetails(userName)
+    }
 }

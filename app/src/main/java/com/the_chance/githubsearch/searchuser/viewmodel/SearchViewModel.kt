@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.the_chance.githubsearch.model.UserItem
-import com.the_chance.githubsearch.searchuser.repository.SearchUserRepository
+import com.the_chance.githubsearch.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchViewModel(private val repository: SearchUserRepository) : ViewModel() {
+class SearchViewModel(private val repository: UserRepository) : ViewModel() {
 
     private val _searchResults = MutableLiveData<List<UserItem>>()
     val searchResults: LiveData<List<UserItem>> = _searchResults

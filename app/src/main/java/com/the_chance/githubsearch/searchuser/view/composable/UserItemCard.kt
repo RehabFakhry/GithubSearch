@@ -1,6 +1,7 @@
 package com.the_chance.githubsearch.searchuser.view.composable
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -19,8 +20,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.the_chance.githubsearch.model.UserItem
+import com.the_chance.githubsearch.searchuser.viewmodel.SearchViewModel
 import com.the_chance.githubsearch.ui.theme.imageSize
 import com.the_chance.githubsearch.ui.theme.space100
 import com.the_chance.githubsearch.ui.theme.space16
@@ -29,9 +32,10 @@ import com.the_chance.githubsearch.ui.theme.textSize16
 import com.the_chance.githubsearch.ui.theme.textSize20
 
 @Composable
-fun UserItemCard(user: UserItem) {
+fun UserItemCard(user: UserItem, navController: NavController) {
     Card(
         modifier = Modifier
+            .clickable { navController.navigate("UserDetailsScreen/${user.login}") }
             .fillMaxWidth()
             .padding(space8),
     ) {

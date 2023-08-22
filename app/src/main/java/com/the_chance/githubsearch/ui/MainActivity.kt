@@ -5,22 +5,38 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.the_chance.githubsearch.network.RetrofitClient
-import com.the_chance.githubsearch.searchuser.repository.SearchUserRepositoryImp
+import com.the_chance.githubsearch.repository.UserRepositoryImp
 import com.the_chance.githubsearch.searchuser.view.SearchScreen
 import com.the_chance.githubsearch.searchuser.viewmodel.SearchViewModel
 import com.the_chance.githubsearch.searchuser.viewmodel.SearchViewModelFactory
+import com.the_chance.githubsearch.userdetails.viewmodel.UserDetailsViewModel
+import com.the_chance.githubsearch.userdetails.viewmodel.UserDetailsViewModelFactory
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var userDetailsViewModel: UserDetailsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val searchViewModelFactory = SearchViewModelFactory(SearchUserRepositoryImp(RetrofitClient))
-        viewModel = ViewModelProvider(this, searchViewModelFactory)[SearchViewModel::class.java]
+        val searchViewModelFactory = SearchViewModelFactory(UserRepositoryImp(RetrofitClient))
+        searchViewModel = ViewModelProvider(this, searchViewModelFactory)[SearchViewModel::class.java]
+
+        val userDetailsViewModelFactory = UserDetailsViewModelFactory(UserRepositoryImp(RetrofitClient))
+        userDetailsViewModel = ViewModelProvider(this, userDetailsViewModelFactory)[UserDetailsViewModel::class.java]
+
         setContent {
             MaterialTheme {
-                SearchScreen(viewModel = viewModel)
+                val navController = rememberNavController()
+
+                NavHost(navController = navController, startDestination = "SearchScreen") {
+                    composable("SearchScreen") {
+                        SearchScreen(viewModel = searchViewModel, navController)
+                    }
+                }
             }
         }
     }
