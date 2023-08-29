@@ -15,8 +15,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.the_chance.githubsearch.R
 import com.the_chance.githubsearch.ui.theme.imageNotFoundSize
+import com.the_chance.githubsearch.ui.theme.space4
 import com.the_chance.githubsearch.ui.theme.space8
 import com.the_chance.githubsearch.ui.theme.textSize16
+import com.the_chance.githubsearch.ui.theme.textSize20
 
 @Composable
 fun NoResultImage() {
@@ -33,11 +35,11 @@ fun NoResultImage() {
                 modifier = Modifier
                     .size(imageNotFoundSize)
                     .fillMaxWidth()
-                    .padding(bottom = space8)
+                    .padding(bottom = space4)
             )
             Text(
                 text = stringResource(id = R.string.no_results_found),
-                fontSize = textSize16)
+                fontSize = textSize20)
         }
     }
 }

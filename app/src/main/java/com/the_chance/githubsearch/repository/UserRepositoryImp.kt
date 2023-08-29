@@ -1,5 +1,6 @@
 package com.the_chance.githubsearch.repository
 
+import com.the_chance.githubsearch.model.UserDetails
 import com.the_chance.githubsearch.model.UserSearchResponse
 import com.the_chance.githubsearch.network.RemoteDataSource
 
@@ -9,7 +10,7 @@ class UserRepositoryImp(private val remoteDataSource: RemoteDataSource)
         return remoteDataSource.searchUsers(query)
     }
 
-    override suspend fun getUserDetails(userName: String): UserSearchResponse {
+    override suspend fun getUserDetails(userName: String, ): UserDetails {
         return remoteDataSource.getUserDetails(userName)
     }
 }

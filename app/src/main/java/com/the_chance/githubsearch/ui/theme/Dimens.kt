@@ -32,5 +32,5 @@ val textSize20 = 20.sp
 val textSize24 = 24.sp
 val textSize32 = 32.sp
 
-val imageSize = 100.dp
-val imageNotFoundSize = 250.dp
+val imageSize = 130.dp
+val imageNotFoundSize = 350.dp

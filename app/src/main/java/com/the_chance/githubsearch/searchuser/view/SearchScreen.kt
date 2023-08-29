@@ -20,12 +20,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.the_chance.githubsearch.R
 import com.the_chance.githubsearch.searchuser.view.composable.NoResultImage
 import com.the_chance.githubsearch.searchuser.view.composable.UserItemCard
 import com.the_chance.githubsearch.searchuser.viewmodel.SearchViewModel
+import com.the_chance.githubsearch.ui.navigation.Screens
+import com.the_chance.githubsearch.ui.theme.space8
+import com.the_chance.githubsearch.ui.theme.textSize14
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,19 +50,23 @@ fun SearchScreen(viewModel: SearchViewModel,navController: NavController) {
             placeholder = {
                 Text(
                     text = stringResource(R.string.search_github_users),
-                    fontSize = 12.sp
+                    fontSize = textSize14
                 )
             },
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(8.dp)
+                .padding(space8)
         )
 
         if (searchResults.isNotEmpty()) {
             LazyColumn {
                 items(searchResults) { resultItem ->
-                    UserItemCard(resultItem, navController)
+                    UserItemCard(resultItem) {
+                        val login = resultItem.login
+                        navController
+                            .navigate("${Screens.UserDetails.route}/$login")
+                    }
                 }
             }
         } else {
