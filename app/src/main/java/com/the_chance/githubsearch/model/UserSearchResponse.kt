@@ -15,8 +15,12 @@ data class UserItem(
 
 data class UserDetails(
     val name: String?,
-    val avatarUrl: String?,
+    @SerializedName("avatar_url")
+    val avatarUrl: String? = "" ,
     val following: Int,
     val followers: Int,
-    val publicRepos: Int
+    @SerializedName("public_repos")
+    val publicRepos: Int,
+    val company: String? = "",
+    val bio: String? = "",
 )

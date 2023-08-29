@@ -1,5 +1,6 @@
 package com.the_chance.githubsearch.userdetails.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,41 +11,63 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.the_chance.githubsearch.ui.theme.imageSize
+import com.the_chance.githubsearch.R
 import com.the_chance.githubsearch.ui.theme.space16
 import com.the_chance.githubsearch.ui.theme.space4
 import com.the_chance.githubsearch.ui.theme.space8
+import com.the_chance.githubsearch.ui.theme.textSize16
+import com.the_chance.githubsearch.ui.theme.textSize20
 import com.the_chance.githubsearch.ui.theme.textSize24
 import com.the_chance.githubsearch.userdetails.viewmodel.UserDetailsViewModel
 
 @Composable
-fun UserDetailsScreen(userDetailsViewModel: UserDetailsViewModel){
+fun UserDetailsScreen(
+    userDetailsViewModel: UserDetailsViewModel,
+    userName: String,
+){
+
+    userDetailsViewModel.getUserDetails(userName, )
+
+    Log.d("tag", "data fetched successfully")
+
     val userDetails = userDetailsViewModel.userDetailsResults.observeAsState()
 
     userDetails.value?.let { userDetailsData ->
-        LaunchedEffect(Unit) {
-            userDetailsViewModel.getUserDetailsUsers(userDetailsData.userDetails.name!!)
-        }
         Column(
-            modifier = Modifier
+            modifier = Modifier.padding(space16)
         ) {
             Image(
-                painter = rememberAsyncImagePainter(model = userDetailsData.userDetails.avatarUrl),
+                painter = rememberAsyncImagePainter(model = userDetailsData.avatarUrl),
                 contentDescription = "User Image",
                 modifier = Modifier
-                    .size(imageSize)
+                    .size(320.dp)
                     .padding(bottom = space16)
             )
+
             Text(
-                text = userDetailsData.userDetails.name ?: "No Name",
+                text = userDetailsData.name ?: "No UserName",
                 fontSize = textSize24, fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = space16))
+                modifier = Modifier.padding(bottom = space16),
+            )
+
+            Text(
+                text = userDetailsData.bio ?: "no bio" ,
+                fontSize = textSize20, fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = space16),
+            )
+
+            Text(
+                text = userDetailsData.company ?: "no Company" ,
+                fontSize = textSize16, fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = space16),
+            )
 
             Row(modifier = Modifier
                 .fillMaxWidth()
@@ -54,29 +77,29 @@ fun UserDetailsScreen(userDetailsViewModel: UserDetailsViewModel){
 
                 Column(modifier = Modifier
                     .fillMaxHeight()
-                    .padding(space16),
+                    .padding(space8),
                     verticalArrangement = Arrangement.spacedBy(space4),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Following")
-                    Text(text = "${userDetailsData.userDetails.following}")
+                    Text(text = stringResource(R.string.following))
+                    Text(text = "${userDetailsData.following}")
                 }
 
                 Column(modifier = Modifier
                     .fillMaxHeight()
-                    .padding(space16),
+                    .padding(horizontal = space16, vertical = space8),
                     verticalArrangement = Arrangement.spacedBy(space4),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Followers")
-                    Text(text = "${userDetailsData.userDetails.followers}")
+                    Text(text = stringResource(R.string.followers))
+                    Text(text = "${userDetailsData.followers}")
                 }
 
                 Column(modifier = Modifier
                     .fillMaxHeight()
-                    .padding(space16),
+                    .padding(space8),
                     verticalArrangement = Arrangement.spacedBy(space4),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(text = "Public Repositories")
-                    Text(text = "${userDetailsData.userDetails.publicRepos}")
+                    Text(text = stringResource(R.string.public_repositories))
+                    Text(text = "${userDetailsData.publicRepos}")
                 }
             }
         }
